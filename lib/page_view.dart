@@ -24,11 +24,13 @@ class ConcentricPageView extends StatefulWidget {
   final ScrollPhysics? physics;
   final Duration duration;
   final Curve curve;
+  final ImageProvider? backgroundImage;
 
   const ConcentricPageView({
     Key? key,
     required this.itemBuilder,
     required this.colors,
+    this.backgroundImage,
     this.onChange,
     this.onFinish,
     this.itemCount,
@@ -101,9 +103,16 @@ class _ConcentricPageViewState extends State<ConcentricPageView> {
                   verticalPosition: widget.verticalPosition,
                 ),
                 child: Container(
-                  color: _nextColor,
+                  // color: _nextColor,
 //                  color: ColorTween(begin: _prevColor, end: _nextColor)
 //                      .transform(_progress), // Colors.blue,
+                  decoration: BoxDecoration(
+                    color: widget.backgroundImage == null ? _nextColor : null,
+                    image: widget.backgroundImage != null
+                        ? DecorationImage(
+                            image: widget.backgroundImage!, fit: BoxFit.cover)
+                        : null,
+                  ),
                 ),
               ),
             );
